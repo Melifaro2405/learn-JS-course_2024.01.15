@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.tab {
+  padding: 15px;
+  border: 2px solid #bcc4bc;
+  border-radius: 15px;
+  background-color: rgb(51, 51, 51, 0.2);
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.active {
+  background: #e4ffd5;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

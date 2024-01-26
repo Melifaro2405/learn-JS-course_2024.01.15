@@ -1,13 +1,17 @@
 import { RestMenu } from '../RestMenu/RestMenu.jsx';
 import { RestReviews } from '../RestReviews/RestReviews.jsx';
+import { restaurants } from '../../../mock.js';
 
-export const Restaurant = ({ restaurant }) => {
+export const Restaurant = ({ restaurantId }) => {
+  const restaurant = restaurants.find((restaurant) => restaurant.id === restaurantId);
+
+  if (!restaurant) return null;
+
   const { name, menu, reviews } = restaurant;
 
   return (
     <div key={name}>
-      <h2>{name}</h2>
-      <RestMenu menuItems={menu} />
+      <RestMenu menu={menu} />
       <RestReviews reviews={reviews} />
     </div>
   );

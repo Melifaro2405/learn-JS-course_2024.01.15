@@ -1,4 +1,19 @@
 .root {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+}
+
+.background{
+  position: relative;
+  z-index:1;
+  overflow:hidden; /*if you want to crop the image*/
+}
+.background:before{
+  z-index:-1;
+  position:absolute;
+  left:0;
+  top:0;
+  content: url('src/assets/images/restaurants.png');
+  opacity:0.2;
 }
