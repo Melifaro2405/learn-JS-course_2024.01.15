@@ -1,4 +1,12 @@
 .root {
   background: #f6f6f6;
   text-align: center;
+  padding: 20px;
+
+  & span {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: lighter;
+  }
 }
