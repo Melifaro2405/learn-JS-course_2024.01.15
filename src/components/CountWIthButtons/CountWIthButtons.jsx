@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../Button/Button.jsx';
 import styles from './styles.module.scss';
 
-export const IncDecCount = () => {
+export const CountWIthButtons = () => {
   const [count, setCount] = useState(0);
 
   const decreaseCount = () => {
