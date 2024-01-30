@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-export const RestReviews = ({ reviews }) => {
+export const RestaurantReviews = ({ reviews }) => {
   return (
     <div className={styles.root}>
       <h3>Reviews</h3>

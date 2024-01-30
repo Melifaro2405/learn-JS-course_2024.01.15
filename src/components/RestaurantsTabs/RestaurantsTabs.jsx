@@ -7,6 +7,8 @@ import classNames from 'classnames';
 export const RestaurantsTabs = () => {
   const [restaurantId, setRestaurantId] = useState(undefined);
 
+  const restaurant = restaurantId && restaurants.find((restaurant) => restaurant.id === restaurantId);
+
   return (
     <>
       <section className={styles.root}>
@@ -23,7 +25,7 @@ export const RestaurantsTabs = () => {
         ))}
       </section>
 
-      {restaurantId && <Restaurant restaurantId={restaurantId} />}
+      {restaurant && <Restaurant data={restaurant} />}
     </>
   );
 };

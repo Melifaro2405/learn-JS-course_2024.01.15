@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button } from '../Button/Button.jsx';
 import styles from './styles.module.scss';
-import { IncDecCount } from '../IncDecCount/IncDecCount.jsx';
+import { CountWIthButtons } from '../CountWIthButtons/CountWIthButtons.jsx';
 
-export const RestMenu = ({ menu }) => {
+export const RestaurantMenu = ({ menu }) => {
   return (
     <div className={styles.root}>
       <h3>Menu</h3>
@@ -11,7 +11,7 @@ export const RestMenu = ({ menu }) => {
         {menu.map(({ id, name }) => (
           <div key={id} className={styles.dishWrapper}>
             <li>{name}</li>
-            <IncDecCount />
+            <CountWIthButtons />
           </div>
         ))}
       </ul>
