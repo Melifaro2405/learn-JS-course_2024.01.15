@@ -1,4 +1,5 @@
 import styles from './styles.module.scss';
+import { ReviewForm } from '../ReviewForm/ReviewForm.jsx';
 
 export const RestaurantReviews = ({ reviews }) => {
   return (
@@ -11,6 +12,7 @@ export const RestaurantReviews = ({ reviews }) => {
           </li>
         ))}
       </ul>
+      <ReviewForm />
     </div>
   );
 };
