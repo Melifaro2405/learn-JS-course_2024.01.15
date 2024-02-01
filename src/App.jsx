@@ -1,10 +1,10 @@
 import { Layout } from './components/Layout/Layout.jsx';
-import { RestaurantsTabs } from './components/RestaurantsTabs/RestaurantsTabs.jsx';
+import { RestaurantPage } from './pages/RestaurantPage/RestaurantPage.jsx';
 
 export const App = () => {
   return (
     <Layout>
-      <RestaurantsTabs />
+      <RestaurantPage />
     </Layout>
   );
 };
