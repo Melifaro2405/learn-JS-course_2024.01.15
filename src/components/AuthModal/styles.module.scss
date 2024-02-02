@@ -1,0 +1,54 @@
+.root {
+  font-size: 24px;
+  width: 500px;
+  position: absolute;
+  box-shadow: rgba(100, 100, 111, 0.3) 0 7px 29px 0;
+  background-color: white;
+  top: 20%;
+  left: calc(50% - 250px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min-content;
+  min-width: 400px;
+  max-width: 800px;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+h4 {
+  margin: 0 0 20px;
+}
+
+div input {
+  height: min-content;
+  width: 70%;
+  font-size: 20px;
+  padding: 5px;
+  border: 1px solid gray;
+  background: rgba(250, 247, 247, 0.5);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+
+  & > button {
+    flex: 1;
+  }
+}
