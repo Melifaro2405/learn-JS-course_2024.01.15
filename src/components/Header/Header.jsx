@@ -3,9 +3,9 @@ import styles from './styles.module.scss';
 export const Header = () => {
   return (
     <header className={styles.root}>
-      <p>
-        <i className={styles.title}>Select a restaurant:</i>
-      </p>
+      <div className={styles.headerContent}>
+        <span>Select a restaurant:</span>
+      </div>
     </header>
   );
 };
