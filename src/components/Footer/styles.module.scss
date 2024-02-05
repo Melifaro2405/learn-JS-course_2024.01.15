@@ -1,12 +1,12 @@
 .root {
-  background: #f6f6f6;
-  text-align: center;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+}
 
-  & span {
-    margin: 0;
-    padding: 10px 0;
-    font-size: 24px;
-    font-weight: lighter;
-  }
+.footerContent {
+  max-width: 1000px;
+  font-size: 28px;
+  font-weight: lighter;
 }

@@ -14,12 +14,12 @@ const reducer = (state = initialState, { type, payload }) =>
     rating: { ...state, rating: payload },
   })[type] ?? state;
 
-export const ReviewForm = () => {
+export const ReviewForm = ({ userName }) => {
   const [form, dispatch] = useReducer(reducer, initialState);
 
-  const handleChangeName = (evt) => {
-    dispatch({ type: 'name', payload: evt.target.value });
-  };
+  // const handleChangeName = (evt) => {
+  //   dispatch({ type: 'name', payload: evt.target.value });
+  // };
 
   const handleChangeText = (evt) => {
     dispatch({ type: 'text', payload: evt.target.value });
@@ -35,12 +35,7 @@ export const ReviewForm = () => {
       <form className={styles.form}>
         <div className={styles.field}>
           <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            value={form.name}
-            onChange={handleChangeName}
-          />
+          <span>{userName}</span>
         </div>
 
         <div className={styles.field}>
