@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/authContext.jsx';
 import { Button } from '../Button/Button.jsx';
 import styles from './styles.module.scss';
 
-const ModalContent = ({ setIsOpen }) => {
+const ModalContent = ({ onClose }) => {
   const [authData, setAuthData] = useState({});
   const { setUser } = useContext(AuthContext);
 
@@ -18,18 +18,14 @@ const ModalContent = ({ setIsOpen }) => {
 
   const handleConfirmLogin = () => {
     setUser(authData);
-    setIsOpen(false);
-  };
-
-  const handleCancelLogin = () => {
-    setIsOpen(false);
+    onClose();
   };
 
   const disabled = !authData.name || !authData.email;
 
   return (
     <>
-      <div className={styles.overlay} onClick={() => setIsOpen(false)} />
+      <div className={styles.overlay} onClick={onClose} />
       <div className={styles.modal}>
         <h4>Authorization:</h4>
         <div className={styles.field}>
@@ -56,18 +52,16 @@ const ModalContent = ({ setIsOpen }) => {
           <Button onClick={handleConfirmLogin} disabled={disabled}>
             Confirm
           </Button>
-          <Button onClick={handleCancelLogin}>Cancel</Button>
+          <Button onClick={onClose}>Cancel</Button>
         </div>
       </div>
     </>
   );
 };
 
-export const AuthModal = ({ isOpen, setIsOpen }) => {
-  if (!isOpen) return null;
-
+export const AuthModal = ({ onClose }) => {
   return createPortal(
-    <ModalContent setIsOpen={setIsOpen} />,
+    <ModalContent onClose={onClose} />,
     document.getElementById('portal')
   );
 };

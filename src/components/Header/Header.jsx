@@ -30,7 +30,7 @@ export const Header = () => {
           </Button>
         )}
       </div>
-      <AuthModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isOpen && <AuthModal onClose={() => setIsOpen(false)} />}
     </header>
   );
 };
