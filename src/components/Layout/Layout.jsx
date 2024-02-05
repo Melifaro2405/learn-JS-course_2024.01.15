@@ -10,6 +10,7 @@ export const Layout = ({ children }) => {
         <main>{children}</main>
         <Footer />
       </div>
+      <div id="portal" />
     </section>
   );
 };

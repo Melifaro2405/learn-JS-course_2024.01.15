@@ -16,7 +16,7 @@ export const RestaurantReviews = ({ reviews }) => {
           </li>
         ))}
       </ul>
-      {user.name && <ReviewForm userName={user.name} />}
+      {user?.name && <ReviewForm userName={user.name} />}
     </div>
   );
 };

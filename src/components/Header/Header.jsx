@@ -1,13 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import exitSvg from '../../assets/svg/exit-svgrepo-com.svg';
 import { Button } from '../Button/Button.jsx';
 import { AuthContext } from '../../contexts/authContext.jsx';
+import { AuthModal } from '../AuthModal/AuthModal.jsx';
 import styles from './styles.module.scss';
 
 export const Header = () => {
-  const { user, setUser, setIsOpenedAuthModal } = useContext(AuthContext);
-
-  const handleOpenAuthModal = () => setIsOpenedAuthModal(true);
+  const { user, setUser } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => setUser({});
 
@@ -22,11 +22,15 @@ export const Header = () => {
             </Button>
           </div>
         ) : (
-          <Button className={styles.loginButton} onClick={handleOpenAuthModal}>
+          <Button
+            className={styles.loginButton}
+            onClick={() => setIsOpen(true)}
+          >
             Log In
           </Button>
         )}
       </div>
+      <AuthModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
 };

@@ -4,9 +4,9 @@ import { AuthContext } from '../../contexts/authContext.jsx';
 import { Button } from '../Button/Button.jsx';
 import styles from './styles.module.scss';
 
-const ModalContent = () => {
+const ModalContent = ({ setIsOpen }) => {
   const [authData, setAuthData] = useState({});
-  const { setIsOpenedAuthModal, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const handleChangeName = (evt) => {
     setAuthData({ ...authData, name: evt.target.value });
@@ -18,54 +18,56 @@ const ModalContent = () => {
 
   const handleConfirmLogin = () => {
     setUser(authData);
-    setIsOpenedAuthModal(false);
+    setIsOpen(false);
   };
 
   const handleCancelLogin = () => {
-    setIsOpenedAuthModal(false);
+    setIsOpen(false);
   };
 
   const disabled = !authData.name || !authData.email;
 
   return (
-    <div className={styles.root}>
-      <h4>Authorization:</h4>
-      <div className={styles.field}>
-        <label htmlFor="name">Name:</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="enter name"
-          value={authData?.name || ''}
-          onChange={handleChangeName}
-        />
+    <>
+      <div className={styles.overlay} onClick={() => setIsOpen(false)} />
+      <div className={styles.modal}>
+        <h4>Authorization:</h4>
+        <div className={styles.field}>
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            type="text"
+            placeholder="enter name"
+            value={authData?.name || ''}
+            onChange={handleChangeName}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="enter email"
+            value={authData?.email || ''}
+            onChange={handleChangeEmail}
+          />
+        </div>
+        <div className={styles.buttons}>
+          <Button onClick={handleConfirmLogin} disabled={disabled}>
+            Confirm
+          </Button>
+          <Button onClick={handleCancelLogin}>Cancel</Button>
+        </div>
       </div>
-      <div className={styles.field}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="enter email"
-          value={authData?.email || ''}
-          onChange={handleChangeEmail}
-        />
-      </div>
-      <div className={styles.buttons}>
-        <Button onClick={handleConfirmLogin} disabled={disabled}>
-          Confirm
-        </Button>
-        <Button onClick={handleCancelLogin}>Cancel</Button>
-      </div>
-    </div>
+    </>
   );
 };
 
-export const AuthModal = () => {
-  const { isOpenedAuthModal } = useContext(AuthContext);
+export const AuthModal = ({ isOpen, setIsOpen }) => {
+  if (!isOpen) return null;
 
-  const portal = document.getElementById('portal');
-
-  if (!isOpenedAuthModal) return null;
-
-  return createPortal(<ModalContent />, portal);
+  return createPortal(
+    <ModalContent setIsOpen={setIsOpen} />,
+    document.getElementById('portal')
+  );
 };
