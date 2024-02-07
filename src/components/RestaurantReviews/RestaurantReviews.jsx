@@ -2,18 +2,17 @@ import styles from './styles.module.scss';
 import { ReviewForm } from '../ReviewForm/ReviewForm.jsx';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/authContext.jsx';
+import { Review } from '../Review/Review.jsx';
 
-export const RestaurantReviews = ({ reviews }) => {
+export const RestaurantReviews = ({ reviewIds }) => {
   const { user } = useContext(AuthContext);
 
   return (
     <div className={styles.root}>
       <h3>Reviews</h3>
       <ul>
-        {reviews.map((item) => (
-          <li key={item.id} style={{ marginBottom: '10px' }}>
-            {item.text}
-          </li>
+        {reviewIds.map((id) => (
+          <Review key={id} reviewId={id} />
         ))}
       </ul>
       {user?.name && <ReviewForm userName={user.name} />}
