@@ -1,18 +1,13 @@
-import { useState } from 'react';
-import { Button } from '../Button/Button.jsx';
+import { Dish } from '../Dish/Dish.jsx';
 import styles from './styles.module.scss';
-import { CountWIthButtons } from '../CountWIthButtons/CountWIthButtons.jsx';
 
-export const RestaurantMenu = ({ menu }) => {
+export const RestaurantMenu = ({ menuIds }) => {
   return (
     <div className={styles.root}>
       <h3>Menu</h3>
       <ul>
-        {menu.map(({ id, name }) => (
-          <div key={id} className={styles.dishWrapper}>
-            <li>{name}</li>
-            <CountWIthButtons />
-          </div>
+        {menuIds.map((id) => (
+          <Dish key={id} dishId={id} />
         ))}
       </ul>
     </div>
