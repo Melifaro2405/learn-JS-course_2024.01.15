@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectRestaurantById } from '../../redux/entities/restaurant/selectors.js';
 import classNames from 'classnames';
+import { selectRestaurantById } from '../../redux/entities/restaurant/index.js';
 import styles from '../RestaurantTabs/styles.module.scss';
 
 export const Tab = ({ restaurantId, onClick, isActiveTab }) => {

@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-import { CountWithButtons } from '../CountWithButtons/CountWithButtons.jsx';
-import { selectReviewById } from '../../redux/entities/review/selectors.js';
+import { selectReviewById } from '../../redux/entities/review/index.js';
 import styles from '../RestaurantMenu/styles.module.scss';
 
 export const Review = ({ reviewId }) => {
@@ -9,7 +8,6 @@ export const Review = ({ reviewId }) => {
   return (
     <div className={styles.dishWrapper}>
       <li>{review.text}</li>
-      <CountWithButtons />
     </div>
   );
 };

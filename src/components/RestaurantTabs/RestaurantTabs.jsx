@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectRestaurantIds } from '../../redux/entities/restaurant/selectors.js';
+import { selectRestaurantIds } from '../../redux/entities/restaurant/index.js';
 import { Tab } from '../Tab/Tab.jsx';
 import styles from './styles.module.scss';
 

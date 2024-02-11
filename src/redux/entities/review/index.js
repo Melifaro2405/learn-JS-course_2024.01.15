@@ -9,4 +9,10 @@ export const reviewSlice = createSlice({
     entities: getSliceEntities(normalizedReviews),
     ids: getSliceIds(normalizedReviews),
   },
+  selectors: {
+    selectReviewIds: (state) => state.ids,
+    selectReviewById: (state, id) => state.entities[id],
+  },
 });
+
+export const { selectReviewIds, selectReviewById } = reviewSlice.selectors;

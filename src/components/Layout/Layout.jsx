@@ -11,6 +11,7 @@ export const Layout = ({ children }) => {
         <Footer />
       </div>
       <div id="portal" />
+      <div id="cart-modal" />
     </section>
   );
 };

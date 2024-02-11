@@ -9,4 +9,10 @@ export const dishSlice = createSlice({
     entities: getSliceEntities(normalizedDishes),
     ids: getSliceIds(normalizedDishes),
   },
+  selectors: {
+    selectDishIds: (state) => state.ids,
+    selectDishById: (state, id) => state.entities[id],
+  },
 });
+
+export const { selectDishIds, selectDishById } = dishSlice.selectors;

@@ -5,7 +5,7 @@ export const RestaurantMenu = ({ menuIds }) => {
   return (
     <div className={styles.root}>
       <h3>Menu</h3>
-      <ul>
+      <ul className={styles.menuWrapper}>
         {menuIds.map((id) => (
           <Dish key={id} dishId={id} />
         ))}
