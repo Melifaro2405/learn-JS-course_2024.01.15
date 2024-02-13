@@ -1,9 +1,10 @@
-import { useEffect, useReducer, useState } from 'react';
-import styles from './styles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useReducer } from 'react';
+import { useSelector } from 'react-redux';
+import { REQUEST_STATUS } from '../../redux/ui/request/constants.js';
 import { getUsers } from '../../redux/entities/user/thunks/get-users.js';
 import { selectUserById } from '../../redux/entities/user/index.js';
-import { selectIsLoading } from '../../redux/ui/request/index.js';
+import { useRequest } from '../../hooks/useRequest.js';
+import styles from './styles.module.scss';
 
 const initialState = {
   name: '',
@@ -19,12 +20,9 @@ const reducer = (state = initialState, { type, payload }) =>
   })[type] ?? state;
 
 export const ReviewForm = () => {
-  const [requestId, setRequestId] = useState(undefined);
-  const isLoading = useSelector(
-    (state) => requestId && selectIsLoading(state, requestId)
-  );
-
   const [form, dispatch] = useReducer(reducer, initialState);
+
+  const requestStatus = useRequest(getUsers);
 
   const user = useSelector((state) =>
     selectUserById(state, 'a304959a-76c0-4b34-954a-b38dbf310360')
@@ -38,13 +36,8 @@ export const ReviewForm = () => {
     dispatch({ type: 'rating', payload: +evt.target.value });
   };
 
-  const dispatchUsers = useDispatch();
-
-  useEffect(() => {
-    setRequestId(dispatchUsers(getUsers()).requestId);
-  }, [dispatchUsers]);
-
-  if (isLoading) return <div>Loading users...</div>;
+  if (requestStatus === REQUEST_STATUS.pending)
+    return <div>Loading users...</div>;
 
   return (
     <div className={styles.root}>
