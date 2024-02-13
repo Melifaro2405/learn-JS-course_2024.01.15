@@ -9,6 +9,10 @@ export const restaurantSlice = createSlice({
   selectors: {
     selectRestaurantIds: (state) => state.ids,
     selectRestaurantById: (state, id) => state.entities[id],
+    selectRestaurantMenuById: (state, id) =>
+      restaurantSlice.getSelectors().selectRestaurantById(state, id)?.menu,
+    selectRestaurantReviewsById: (state, id) =>
+      restaurantSlice.getSelectors().selectRestaurantById(state, id)?.reviews,
   },
   extraReducers: (builder) =>
     builder.addCase(getRestaurants.fulfilled, (state, { payload }) => {
@@ -16,5 +20,9 @@ export const restaurantSlice = createSlice({
     }),
 });
 
-export const { selectRestaurantIds, selectRestaurantById } =
-  restaurantSlice.selectors;
+export const {
+  selectRestaurantIds,
+  selectRestaurantById,
+  selectRestaurantMenuById,
+  selectRestaurantReviewsById,
+} = restaurantSlice.selectors;

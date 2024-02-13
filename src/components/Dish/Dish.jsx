@@ -14,6 +14,8 @@ export const Dish = ({ dishId }) => {
 
   const dispatch = useDispatch();
 
+  if (!dish) return null;
+
   const addProduct = () => dispatch(increment(dishId));
   const deleteProduct = () => dispatch(decrement(dishId));
 

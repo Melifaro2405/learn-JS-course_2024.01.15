@@ -8,14 +8,10 @@ export const Restaurant = ({ restaurantId }) => {
     selectRestaurantById(state, restaurantId)
   );
 
-  if (!restaurant) return null;
-
-  const { menu, reviews } = restaurant;
-
   return (
     <>
-      <RestaurantMenu menuIds={menu} />
-      <RestaurantReviews reviewIds={reviews} />
+      <RestaurantMenu restaurantId={restaurant.id} />
+      <RestaurantReviews restaurantId={restaurant.id} />
     </>
   );
 };
