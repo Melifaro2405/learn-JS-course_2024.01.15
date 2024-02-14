@@ -1,35 +1,26 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { AuthContext } from '../../contexts/authContext.jsx';
-import { selectRestaurantReviewsById } from '../../redux/entities/restaurant/index.js';
-import { getReviewsByRestaurantId } from '../../redux/entities/review/thunks/get-reviews-by-restaurantId.js';
-import { REQUEST_STATUS } from '../../redux/ui/request/constants.js';
 import { ReviewForm } from '../ReviewForm/ReviewForm.jsx';
 import { Review } from '../Review/Review.jsx';
-import { useRequest } from '../../hooks/useRequest.js';
+import { AuthContext } from '../../contexts/authContext.jsx';
+import { useGetReviewsQuery } from '../../redux/services/api.js';
 import styles from './styles.module.scss';
 
 export const RestaurantReviews = ({ restaurantId }) => {
   const { user } = useContext(AuthContext);
 
-  const reviewsIds = useSelector((state) =>
-    selectRestaurantReviewsById(state, restaurantId)
-  );
-  const requestStatus = useRequest(getReviewsByRestaurantId, restaurantId);
-
-  if (!reviewsIds.length) return null;
+  const { data: reviews, isFetching } = useGetReviewsQuery(restaurantId);
 
   return (
     <div className={styles.root}>
       <h3>Reviews</h3>
       <ul>
-        {requestStatus === REQUEST_STATUS.pending ? (
+        {isFetching ? (
           <div>Loading reviews...</div>
         ) : (
-          reviewsIds.map((id) => <Review key={id} reviewId={id} />)
+          reviews.map((review) => <Review key={review.id} review={review} />)
         )}
       </ul>
-      {user && <ReviewForm />}
+      {user && <ReviewForm restaurantId={restaurantId} />}
     </div>
   );
 };

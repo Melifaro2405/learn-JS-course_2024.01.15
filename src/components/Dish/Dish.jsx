@@ -4,24 +4,20 @@ import {
   increment,
   selectProductAmountById,
 } from '../../redux/ui/cart/index.js';
-import { selectDishById } from '../../redux/entities/dish/index.js';
 import { Button } from '../Button/Button.jsx';
 import styles from '../RestaurantMenu/styles.module.scss';
 
-export const Dish = ({ dishId }) => {
-  const dish = useSelector((state) => selectDishById(state, dishId));
+export const Dish = ({ dishId, title }) => {
   const amount = useSelector((state) => selectProductAmountById(state, dishId));
 
   const dispatch = useDispatch();
-
-  if (!dish) return null;
 
   const addProduct = () => dispatch(increment(dishId));
   const deleteProduct = () => dispatch(decrement(dishId));
 
   return (
     <div className={styles.dishWrapper}>
-      <li style={{ whiteSpace: 'nowrap' }}>{dish.name}</li>
+      <li style={{ whiteSpace: 'nowrap' }}>{title}</li>
       <div className={styles.buttonsWrapper}>
         <Button className={styles.button} onClick={deleteProduct}>
           -

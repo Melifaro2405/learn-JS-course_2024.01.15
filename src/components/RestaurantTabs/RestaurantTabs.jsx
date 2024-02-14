@@ -1,18 +1,17 @@
-import { useSelector } from 'react-redux';
-import { selectRestaurantIds } from '../../redux/entities/restaurant/index.js';
 import { Tab } from '../Tab/Tab.jsx';
+import { useGetRestaurantsQuery } from '../../redux/services/api.js';
 import styles from './styles.module.scss';
 
 export const RestaurantTabs = ({ tabId, onSelect }) => {
-  const restaurantIds = useSelector(selectRestaurantIds);
+  const { data: restaurants } = useGetRestaurantsQuery();
 
   return (
     <div className={styles.root}>
-      {restaurantIds.map((id) => (
+      {restaurants.map(({ id, name }) => (
         <Tab
           key={id}
           isActiveTab={tabId === id}
-          restaurantId={id}
+          title={name}
           onClick={() => onSelect(id)}
         />
       ))}

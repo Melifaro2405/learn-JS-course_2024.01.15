@@ -1,25 +1,29 @@
 import { useState } from 'react';
-import { getRestaurants } from '../../redux/entities/restaurant/thunks/get-restaurants.js';
-import { Restaurant } from '../../components/Restaurant/Restaurant.jsx';
-import { RestaurantTabs } from '../../components/RestaurantTabs/RestaurantTabs.jsx';
+import { useGetRestaurantsQuery } from '../../redux/services/api.js';
 import { Layout } from '../../components/Layout/Layout.jsx';
-import { useRequest } from '../../hooks/useRequest.js';
+import { RestaurantTabs } from '../../components/RestaurantTabs/RestaurantTabs.jsx';
 import styles from './styles.module.scss';
-import { REQUEST_STATUS } from '../../redux/ui/request/constants.js';
+import { RestaurantMenu } from '../../components/RestaurantMenu/RestaurantMenu.jsx';
+import { RestaurantReviews } from '../../components/RestaurantReviews/RestaurantReviews.jsx';
 
 export const RestaurantPage = () => {
   const [restaurantId, setRestaurantId] = useState(undefined);
 
-  const requestStatus = useRequest(getRestaurants);
+  const { isLoading } = useGetRestaurantsQuery();
 
   return (
     <Layout>
-      {requestStatus === REQUEST_STATUS.pending ? (
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <section className={styles.root}>
           <RestaurantTabs tabId={restaurantId} onSelect={setRestaurantId} />
-          {restaurantId && <Restaurant restaurantId={restaurantId} />}
+          {restaurantId && (
+            <>
+              <RestaurantMenu restaurantId={restaurantId} />
+              <RestaurantReviews restaurantId={restaurantId} />
+            </>
+          )}
         </section>
       )}
     </Layout>
