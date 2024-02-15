@@ -14,9 +14,9 @@ export const Review = ({ review }) => {
 
   const setText = (evt) => setReviewText(evt.target.value);
 
-  const handleUpdateReview = async () => {
+  const handleUpdateReview = () => {
     const editedReview = { ...review, text: reviewText };
-    await updateReview({ review: editedReview });
+    updateReview({ review: editedReview });
     setIsEditReview(false);
   };
 
