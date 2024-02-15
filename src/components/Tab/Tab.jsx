@@ -1,13 +1,7 @@
-import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { selectRestaurantById } from '../../redux/entities/restaurant/index.js';
 import styles from '../RestaurantTabs/styles.module.scss';
 
-export const Tab = ({ restaurantId, onClick, isActiveTab }) => {
-  const restaurant = useSelector((state) =>
-    selectRestaurantById(state, restaurantId)
-  );
-
+export const Tab = ({ title, onClick, isActiveTab }) => {
   return (
     <div
       className={classNames(styles.tab, {
@@ -15,7 +9,7 @@ export const Tab = ({ restaurantId, onClick, isActiveTab }) => {
       })}
       onClick={onClick}
     >
-      {restaurant.name}
+      {title}
     </div>
   );
 };

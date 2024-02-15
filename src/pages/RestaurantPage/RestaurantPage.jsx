@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Restaurant } from '../../components/Restaurant/Restaurant.jsx';
+import { useState } from 'react';
+import { useGetRestaurantsQuery } from '../../redux/services/api.js';
+import { Layout } from '../../components/Layout/Layout.jsx';
 import { RestaurantTabs } from '../../components/RestaurantTabs/RestaurantTabs.jsx';
 import styles from './styles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRestaurants } from '../../redux/entities/restaurant/thunks/get-restaurants.js';
-import { Layout } from '../../components/Layout/Layout.jsx';
-import { selectIsLoading } from '../../redux/ui/request/index.js';
+import { RestaurantMenu } from '../../components/RestaurantMenu/RestaurantMenu.jsx';
+import { RestaurantReviews } from '../../components/RestaurantReviews/RestaurantReviews.jsx';
 
 export const RestaurantPage = () => {
   const [restaurantId, setRestaurantId] = useState(undefined);
-  const [requestId, setRequestId] = useState(undefined);
-  const isLoading = useSelector(
-    (state) => requestId && selectIsLoading(state, requestId)
-  );
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    setRequestId(dispatch(getRestaurants()).requestId);
-  }, [dispatch]);
+  const { isLoading } = useGetRestaurantsQuery();
 
   return (
     <Layout>
@@ -27,7 +18,12 @@ export const RestaurantPage = () => {
       ) : (
         <section className={styles.root}>
           <RestaurantTabs tabId={restaurantId} onSelect={setRestaurantId} />
-          {restaurantId && <Restaurant restaurantId={restaurantId} />}
+          {restaurantId && (
+            <>
+              <RestaurantMenu restaurantId={restaurantId} />
+              <RestaurantReviews restaurantId={restaurantId} />
+            </>
+          )}
         </section>
       )}
     </Layout>

@@ -1,68 +1,45 @@
-import { useEffect, useReducer, useState } from 'react';
+import {
+  useCreateReviewMutation,
+  useGetUsersQuery,
+} from '../../redux/services/api.js';
 import styles from './styles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../redux/entities/user/thunks/get-users.js';
-import { selectUserById } from '../../redux/entities/user/index.js';
-import { selectIsLoading } from '../../redux/ui/request/index.js';
+import { Button } from '../Button/Button.jsx';
+import { useForm } from '../../hooks/useForm.js';
 
-const initialState = {
-  name: '',
-  text: '',
-  rating: 0,
-};
+export const ReviewForm = ({ restaurantId }) => {
+  const { form, setName, setText, setRating, clearForm } = useForm();
 
-const reducer = (state = initialState, { type, payload }) =>
-  ({
-    name: { ...state, name: payload },
-    text: { ...state, text: payload },
-    rating: { ...state, rating: payload },
-  })[type] ?? state;
+  const [createReview, { isLoading: isLoadingCreateReview }] =
+    useCreateReviewMutation();
 
-export const ReviewForm = () => {
-  const [requestId, setRequestId] = useState(undefined);
-  const isLoading = useSelector(
-    (state) => requestId && selectIsLoading(state, requestId)
-  );
-
-  const [form, dispatch] = useReducer(reducer, initialState);
-
-  const user = useSelector((state) =>
-    selectUserById(state, 'a304959a-76c0-4b34-954a-b38dbf310360')
-  );
-
-  const handleChangeText = (evt) => {
-    dispatch({ type: 'text', payload: evt.target.value });
-  };
-
-  const handleChangeRating = (evt) => {
-    dispatch({ type: 'rating', payload: +evt.target.value });
-  };
-
-  const dispatchUsers = useDispatch();
-
-  useEffect(() => {
-    setRequestId(dispatchUsers(getUsers()).requestId);
-  }, [dispatchUsers]);
+  const { data: users, isLoading } = useGetUsersQuery();
 
   if (isLoading) return <div>Loading users...</div>;
+
+  const userNames = users.reduce((acc, { name }) => acc.concat(name, ', '), '');
+
+  const createNewReview = async () => {
+    await createReview({ restaurantId, newReview: form });
+    clearForm();
+  };
+
+  const disabledCreateRevies = Object.values(form).some((value) => !value);
 
   return (
     <div className={styles.root}>
       <h3>Review Form</h3>
+      <p style={{ marginBottom: '30px', color: 'gray' }}>
+        Users from request: {userNames}
+      </p>
       <form className={styles.form}>
         <div className={styles.field}>
           <label htmlFor="name">Name:</label>
-          <span>{user?.name}</span>
+          <input id="name" type="name" value={form.name} onChange={setName} />
         </div>
 
         <div className={styles.field}>
           <label htmlFor="text">Text:</label>
-          <input
-            id="text"
-            type="text"
-            value={form.text}
-            onChange={handleChangeText}
-          />
+          <input id="text" type="text" value={form.text} onChange={setText} />
         </div>
 
         <div className={styles.field}>
@@ -71,10 +48,17 @@ export const ReviewForm = () => {
             id="rating"
             type="number"
             value={form.rating}
-            onChange={handleChangeRating}
+            onChange={setRating}
           />
         </div>
       </form>
+      {isLoadingCreateReview ? (
+        <div>Loading...</div>
+      ) : (
+        <Button disabled={disabledCreateRevies} onClick={createNewReview}>
+          Create review
+        </Button>
+      )}
     </div>
   );
 };
