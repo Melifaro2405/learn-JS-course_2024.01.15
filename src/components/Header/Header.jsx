@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react';
-import exitSvg from '../../assets/svg/exit-svgrepo-com.svg';
-import { Button } from '../Button/Button.jsx';
 import { AuthContext } from '../../contexts/authContext.jsx';
+import { Button } from '../Button/Button.jsx';
 import { AuthModal } from '../AuthModal/AuthModal.jsx';
+import { CartButton } from '../CartButton/CartButton.jsx';
+import exitSvg from '../../assets/svg/exit-svgrepo-com.svg';
 import styles from './styles.module.scss';
 
 export const Header = () => {
@@ -15,8 +16,8 @@ export const Header = () => {
     <header className={styles.root}>
       <div className={styles.headerContent}>
         {user?.name ? (
-          <div className={styles.authContainer}>
-            <span>You logged in as {user.name}</span>
+          <div className={styles.contentWrapper}>
+            <span>{user.name}</span>
             <Button className={styles.logoutButton}>
               <img src={exitSvg} alt={'exit-button'} onClick={handleLogout} />
             </Button>
@@ -31,6 +32,7 @@ export const Header = () => {
         )}
       </div>
       {isOpen && <AuthModal onClose={() => setIsOpen(false)} />}
+      <CartButton />
     </header>
   );
 };
