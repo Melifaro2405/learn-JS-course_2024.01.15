@@ -37,10 +37,7 @@ export const api = createApi({
         body: newReview,
       }),
       invalidatesTags: (result, _, { restaurantId }) => [
-        {
-          type: 'Restaurant',
-          id: restaurantId,
-        },
+        { type: 'Restaurant', id: restaurantId },
       ],
     }),
     updateReview: builder.mutation({
@@ -50,10 +47,7 @@ export const api = createApi({
         body: review,
       }),
       invalidatesTags: (result, _, { review }) => [
-        {
-          type: 'Review',
-          id: review.id,
-        },
+        { type: 'Review', id: review.id },
       ],
     }),
   }),

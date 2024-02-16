@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   decrement,
   increment,
-  selectProductAmountById,
+  selectDishAmountById,
 } from '../../redux/ui/cart/index.js';
 import { Button } from '../Button/Button.jsx';
 import styles from '../RestaurantMenu/styles.module.scss';
 
 export const Dish = ({ dishId, title }) => {
-  const amount = useSelector((state) => selectProductAmountById(state, dishId));
+  const amount = useSelector((state) => selectDishAmountById(state, dishId));
 
   const dispatch = useDispatch();
 

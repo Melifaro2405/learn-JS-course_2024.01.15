@@ -4,32 +4,29 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState: {},
   reducers: {
-    increment: (state, { payload: productId }) => {
-      state[productId] = (state[productId] || 0) + 1;
+    increment: (state, { payload: dishId }) => {
+      state[dishId] = (state[dishId] || 0) + 1;
     },
-    decrement: (state, { payload: productId }) => {
-      state[productId] = (state[productId] || 0) - 1;
+    decrement: (state, { payload: dishId }) => {
+      state[dishId] = (state[dishId] || 0) - 1;
 
-      if (state[productId] < 1) {
-        delete state[productId];
+      if (state[dishId] < 1) {
+        delete state[dishId];
       }
     },
   },
   selectors: {
-    selectProductAmountById: (state, productId) => {
-      return state[productId] || 0;
+    selectDishAmountById: (state, dishId) => {
+      return state[dishId] || 0;
     },
-    selectProductAmount: (state) =>
+    selectDishAmount: (state) =>
       Object.values(state).reduce((acc, amount) => {
         return acc + amount;
       }, 0),
-    selectCartProductIds: (state) => Object.keys(state),
   },
 });
 
-export const {
-  selectProductAmountById,
-  selectProductAmount,
-  selectCartProductIds,
-} = cartSlice.selectors;
+export const { selectDishAmountById, selectDishAmount, selectCartDishIds } =
+  cartSlice.selectors;
+
 export const { increment, decrement } = cartSlice.actions;
