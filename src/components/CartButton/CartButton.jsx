@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
-import { selectProductAmount } from '../../redux/ui/cart/index.js';
+import { selectDishAmount } from '../../redux/ui/cart/index.js';
 import { Button } from '../Button/Button.jsx';
 import { Cart } from '../Cart/Cart.jsx';
 import styles from '../Header/styles.module.scss';
 
 export const CartButton = () => {
   const [isOpenCartModal, setIsOpenCartModal] = useState(false);
-  const amount = useSelector(selectProductAmount);
+  const amount = useSelector(selectDishAmount);
 
   return (
     <div className={styles.root}>
