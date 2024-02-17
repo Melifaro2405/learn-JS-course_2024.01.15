@@ -2,8 +2,14 @@ import { ReviewForm } from '../ReviewForm/ReviewForm.jsx';
 import { Review } from '../Review/Review.jsx';
 import { useGetReviewsQuery } from '../../redux/services/api.js';
 import styles from './styles.module.scss';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authContext.jsx';
+import { useParams } from 'react-router-dom';
 
-export const RestaurantReviews = ({ restaurantId }) => {
+export const RestaurantReviews = () => {
+  const { restaurantId } = useParams();
+
+  const { user } = useContext(AuthContext);
   const { data: reviews, isFetching } = useGetReviewsQuery(restaurantId);
 
   return (
@@ -16,7 +22,7 @@ export const RestaurantReviews = ({ restaurantId }) => {
           reviews.map((review) => <Review key={review.id} review={review} />)
         )}
       </ul>
-      <ReviewForm restaurantId={restaurantId} />
+      {user && <ReviewForm restaurantId={restaurantId} />}
     </div>
   );
 };

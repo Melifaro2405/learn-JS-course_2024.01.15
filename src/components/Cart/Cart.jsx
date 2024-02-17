@@ -9,8 +9,8 @@ export const Cart = () => {
     <>
       <h2>Cart</h2>
       {cartDishIds.length ? (
-        cartDishIds.map((productId) => {
-          return <Dish key={productId} dishId={productId} />;
+        cartDishIds.map((dishId) => {
+          return <Dish key={dishId} id={dishId} isCart />;
         })
       ) : (
         <h3>Empty</h3>
