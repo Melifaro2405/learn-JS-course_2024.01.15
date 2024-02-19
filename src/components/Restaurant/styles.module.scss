@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.link {
+  width: min-content;
+}
+
+.activeLink {
+  & > button {
+    background: #e4ffd5;
+  }
+}

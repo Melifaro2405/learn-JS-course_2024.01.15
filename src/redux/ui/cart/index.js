@@ -23,6 +23,7 @@ export const cartSlice = createSlice({
       Object.values(state).reduce((acc, amount) => {
         return acc + amount;
       }, 0),
+    selectCartDishIds: (state) => Object.keys(state),
   },
 });
 

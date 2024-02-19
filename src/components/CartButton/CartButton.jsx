@@ -13,7 +13,7 @@ export const CartButton = () => {
   return (
     <div className={styles.root}>
       <div className={styles.headerContent}>
-        <div className={styles.contentWrapper}>Cart amount:</div>
+        <div className={styles.contentWrapper}>Cart:</div>
         <Button onClick={() => setIsOpenCartModal(true)}>{amount}</Button>
       </div>
       {isOpenCartModal &&

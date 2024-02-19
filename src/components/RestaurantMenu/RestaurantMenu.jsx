@@ -1,8 +1,10 @@
-import { Dish } from '../Dish/Dish.jsx';
+import { Link, useParams } from 'react-router-dom';
 import { useGetMenuQuery } from '../../redux/services/api.js';
 import styles from './styles.module.scss';
 
-export const RestaurantMenu = ({ restaurantId }) => {
+export const RestaurantMenu = () => {
+  const { restaurantId } = useParams();
+
   const { data: menu, isFetching } = useGetMenuQuery(restaurantId);
 
   return (
@@ -12,7 +14,11 @@ export const RestaurantMenu = ({ restaurantId }) => {
         {isFetching ? (
           <div>Loading menu...</div>
         ) : (
-          menu.map(({ id, name }) => <Dish key={id} dishId={id} title={name} />)
+          menu.map((dish) => (
+            <Link key={dish.id} to={`/dish/${dish.id}`} state={dish}>
+              <li>{dish.name}</li>
+            </Link>
+          ))
         )}
       </ul>
     </div>
