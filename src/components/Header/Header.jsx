@@ -19,36 +19,38 @@ export const Header = () => {
 
   return (
     <header className={styles.root}>
-      <div className={styles.headerContent}>
-        {user?.name ? (
-          <div className={styles.contentWrapper}>
-            <span>{user.name}</span>
-            <Button className={styles.logoutButton}>
-              <img src={exitSvg} alt={'exit-button'} onClick={handleLogout} />
+      <div className={styles.headerWrapper}>
+        <div className={styles.headerContent}>
+          {user?.name ? (
+            <div className={styles.contentWrapper}>
+              <span>{user.name}</span>
+              <Button className={styles.logoutButton}>
+                <img src={exitSvg} alt={'exit-button'} onClick={handleLogout} />
+              </Button>
+            </div>
+          ) : (
+            <Button
+              className={styles.loginButton}
+              onClick={() => setIsOpen(true)}
+            >
+              Log In
             </Button>
-          </div>
-        ) : (
-          <Button
-            className={styles.loginButton}
-            onClick={() => setIsOpen(true)}
-          >
-            Log In
-          </Button>
-        )}
+          )}
+        </div>
+        <nav className={styles.navigation}>
+          <NavLink to="/" className={getLinkStyles}>
+            Home
+          </NavLink>
+          <NavLink to="restaurants" className={getLinkStyles}>
+            Restaurants
+          </NavLink>
+          <NavLink to="about-us" className={getLinkStyles}>
+            About us
+          </NavLink>
+        </nav>
+        {isOpen && <AuthModal onClose={() => setIsOpen(false)} />}
+        <CartButton />
       </div>
-      <nav className={styles.navigation}>
-        <NavLink to="/" className={getLinkStyles}>
-          Home
-        </NavLink>
-        <NavLink to="restaurants" className={getLinkStyles}>
-          Restaurants
-        </NavLink>
-        <NavLink to="about-us" className={getLinkStyles}>
-          About us
-        </NavLink>
-      </nav>
-      {isOpen && <AuthModal onClose={() => setIsOpen(false)} />}
-      <CartButton />
     </header>
   );
 };
